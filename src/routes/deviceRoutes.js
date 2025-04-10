@@ -1,27 +1,24 @@
-// deviceRoutes.js
-// src/routes/deviceRoutes.js
 import express from 'express';
+import { autenticarToken } from '../middlewares/authMiddleware.js';
 import {
-    cadastrarDispositivo,
-    listarDispositivos,
-    atualizarDispositivo,
-    deletarDispositivo,
-    buscarDispositivo
-  } from '../controllers/deviceController.js';
-
-  const router = express.Router();
-
-  
-  router.get('/', listarDispositivos);
-  router.get('/:id', buscarDispositivo);
-  router.post('/', cadastrarDispositivo);
-  router.put('/:id', atualizarDispositivo);
-  router.delete('/:id', deletarDispositivo);
-  
+  cadastrarDispositivo,
+  listarDispositivos,
+  atualizarDispositivo,
+  deletarDispositivo,
+  buscarDispositivoPorIdOuNome
+} from '../controllers/deviceController.js';
 
 
+const router = express.Router();
 
+// Todas as rotas de dispositivos agora exigem autenticação
+router.use(autenticarToken);
 
-
+router.get('/', autenticarToken, listarDispositivos);
+router.post('/', cadastrarDispositivo);
+router.get('/', listarDispositivos);
+router.get('/:idOuNome', buscarDispositivoPorIdOuNome);
+router.put('/:id', atualizarDispositivo);
+router.delete('/:id', deletarDispositivo);
 
 export default router;

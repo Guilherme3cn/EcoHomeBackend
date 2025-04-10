@@ -53,19 +53,21 @@ export async function deletarDispositivo(req, res) {
   }
   
 // buscarDispositivo: Rota para buscar um dispositivo pelo ID ou nome
-  export async function buscarDispositivo(req, res) {
+// Exemplo: deve estar mais ou menos assim
+export async function buscarDispositivoPorIdOuNome(req, res) {
     const { id } = req.params;
   
     try {
-      const [rows] = await getDeviceByIdOrName(id);
-      if (rows.length === 0) {
-        return res.status(404).json({ message: 'Dispositivo não encontrado.' });
+      const dispositivo = await getDeviceByIdOrName(id);
+  
+      if (!dispositivo) {
+        return res.status(404).json({ mensagem: 'Dispositivo não encontrado' });
       }
-      res.status(200).json(rows[0]);
+  
+      res.status(200).json(dispositivo);
     } catch (error) {
       console.error('Erro ao buscar dispositivo:', error);
-      res.status(500).json({ error: 'Erro ao buscar dispositivo.' });
+      res.status(500).json({ mensagem: 'Erro ao buscar dispositivo' });
     }
   }
-  
   
