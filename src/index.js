@@ -1,23 +1,17 @@
 // src/index.js
 import express from 'express';
 import cors from 'cors';
-import deviceRoutes from './routes/deviceRoutes.js';
+import dispositivoRoutes from './routes/deviceRoutes.js';
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Rotas
-app.use('/api', deviceRoutes);
-
-// Rota teste
-app.get('/', (req, res) => {
-  res.send('EcoHome Backend está rodando 🚀');
-});
+// ROTAS
+app.use('/dispositivos', dispositivoRoutes); // <- Aqui está o prefixo
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

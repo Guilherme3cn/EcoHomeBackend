@@ -1,9 +1,27 @@
 // deviceRoutes.js
+// src/routes/deviceRoutes.js
 import express from 'express';
-import { registerDevice } from '../controllers/deviceController.js';
+import {
+    cadastrarDispositivo,
+    listarDispositivos,
+    atualizarDispositivo,
+    deletarDispositivo,
+    buscarDispositivo
+  } from '../controllers/deviceController.js';
 
-const router = express.Router();
+  const router = express.Router();
 
-router.post('/devices', registerDevice);
+  
+  router.get('/', listarDispositivos);
+  router.get('/:id', buscarDispositivo);
+  router.post('/', cadastrarDispositivo);
+  router.put('/:id', atualizarDispositivo);
+  router.delete('/:id', deletarDispositivo);
+  
+
+
+
+
+
 
 export default router;
